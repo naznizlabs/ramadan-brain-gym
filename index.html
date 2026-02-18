@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Brain Gym | @naznizismyusername</title>
+    <style>
+        :root { --primary: #1a2a3a; --accent: #c5a021; --success: #27ae60; --error: #e74c3c; --bg: #f0f2f5; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+        
+        .card { background: white; padding: 25px; border-radius: 24px; box-shadow: 0 10px 50px rgba(0,0,0,0.1); width: 100%; max-width: 420px; text-align: center; border: 1px solid #eee; position: relative; overflow: hidden; box-sizing: border-box; }
+        
+        .avatar-container { width: 80px; height: 80px; margin: 0 auto 10px; }
+        .avatar { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); object-fit: cover; background: #eee; }
+        
+        .fb-brand { color: #1877F2; font-weight: bold; font-size: 1rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .cta-text { font-size: 0.4rem; color: #666; margin-top: 4px; font-weight: 500; font-style: italic; }
+        .title-main { color: var(--primary); margin: 15px 0 5px 0; font-size: 1.3rem; font-weight: 800; }
+        
+        .progress-text { font-size: 0.8rem; font-weight: 800; color: #aaa; margin-top: 10px; text-transform: uppercase; }
+        .lives-text { color: var(--error); font-weight: bold; font-size: 1rem; margin-top: 5px; }
+
+        .hint-box { background: #fffcf0; padding: 18px; border-radius: 12px; margin: 15px 0; font-style: italic; border-left: 5px solid var(--accent); text-align: left; font-size: 0.95rem; line-height: 1.5; color: #444; min-height: 60px; }
+        
+        /* FIX RESPONSIVE UNTUK JAWAPAN PANJANG */
+        .word-display { 
+            display: flex; 
+            gap: 5px; 
+            justify-content: center; 
+            margin-bottom: 20px; 
+            flex-wrap: wrap; /* Supaya huruf turun bawah kalau panjang */
+            padding: 0 5px;
+        }
+        .letter-box { 
+            min-width: 25px; 
+            height: 35px; 
+            border-bottom: 3px solid #ddd; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: clamp(0.9rem, 4vw, 1.2rem); 
+            font-weight: bold; 
+            text-transform: uppercase; 
+        }
+        .found { border-bottom: 3px solid var(--success); color: var(--success); animation: pop 0.3s; }
+
+        .keyboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(32px, 1fr)); gap: 6px; }
+        .key { padding: 12px 0; background: #f8f9fa; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.85rem; border: none; }
+        .key:disabled { opacity: 0.4; }
+        .key.correct { background: var(--success); color: white; }
+        .key.wrong { background: #ddd; color: #888; }
+
+        .btn-action { width: 100%; padding: 15px; border: none; border-radius: 12px; margin-top: 15px; font-weight: 800; cursor: pointer; display: none; font-size: 1rem; }
+        
+        #status-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.97); z-index: 10; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+        .overlay-msg { font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-bottom: 15px; line-height: 1.4; }
+
+        .affiliate-box { background: #f0f7ff; border: 1.5px solid #1877F2; padding: 12px; border-radius: 16px; display: flex; align-items: center; gap: 10px; margin-top: 25px; text-align: left; }
+
+        @keyframes pop { 0% { transform: scale(0.8); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="status-overlay">
+        <div id="overlay-content" class="overlay-msg"></div>
+        <button id="overlay-btn" class="btn-action" style="display:block; width: 200px; background: var(--primary); color: white;"></button>
+    </div>
+
+    <div id="game-container">
+        <div class="header">
+            <div class="avatar-container"><img src="avatar-head.png" alt="nazniz" class="avatar"></div>
+            <a href="https://www.facebook.com/naznizismyusername" class="fb-brand" target="_blank">
+                <svg width="18" height="18" fill="#1877F2" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
+                <span>naznizismyusername</span>
+            </a>
+            <div class="cta-text">"Saja buat game ni untuk asah otak. Singgahlah wall saya kalau nak borak pasal kucing atau coding. ✨"</div>
+            <div class="title-main">RAMADAN BRAIN GYM 🧠🌙</div>
+            <div class="progress-text">LEVEL <span id="lvl-num">1</span> / 10</div>
+            <div class="lives-text">NYAWA: <span id="lives">5</span> ❤️</div>
+        </div>
+
+        <div id="hint-text" class="hint-box">Memuatkan...</div>
+        <div id="word-display" class="word-display"></div>
+        <div id="keyboard" class="keyboard"></div>
+
+        <button id="next-btn" class="btn-action" style="background: var(--success); color: white;" onclick="nextLevel()">TERUSKAN ➡️</button>
+        <button id="share-btn" class="btn-action" style="background: #1877F2; color: white;" onclick="shareToFB()">KONGSI KEJAYAAN 🏆</button>
+
+        <div style="font-size: 0.7rem; color: #27ae60; font-weight: bold; margin-top: 15px;">🌙 Soalan baru setiap pagi jam 8:00 AM</div>
+
+        <div class="affiliate-box">
+            <div style="flex: 1;">
+                <div style="font-size: 0.75rem; font-weight: 800; color: #1a2a3a;">Dah pandai asah otak, jom asah income! 💸</div>
+                <div style="font-size: 0.55rem; color: #444; margin-top: 3px;">Ketahui teknik kelayakan cepat & sekuriti akaun FB Monetization 2026.</div>
+            </div>
+            <a href="https://amarmagical.onpay.my/order/form/ebookfbmonetization/427" target="_blank" style="background: #1877F2; color: white; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.65rem;">INFO LANJUT</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Copy-paste soalan baru di sini nanti
+    const masterDB = [
+        { q: "Nama asal Kota Madinah sebelum Islam.", a: "YATHRIB" },
+        { q: "Gelaran bagi Khalid bin Al-Walid.", a: "SAIFULLAH" },
+        { q: "Perang pertama dalam sejarah Islam.", a: "BADAR" },
+        { q: "Bulan diturunkan Al-Quran.", a: "RAMADAN" },
+        { q: "Maksud: Berhenti makan sebelum Subuh.", a: "IMSAK" },
+        { q: "Ibu susuan Nabi Muhammad SAW.", a: "HALIMATUSAADIAH" },
+        { q: "Kiblat pertama sebelum Baitullah.", a: "BAITULMAQDIS" },
+        { q: "Sahabat paling banyak riwayat hadis.", a: "ABUHURAIRAH" },
+        { q: "Perjalanan Nabi ke Sidratul Muntaha.", a: "ISRAKMIKRAJ" },
+        { q: "Pedang milik Saidina Ali.", a: "ZULFIQAR" }
+    ];
+
+    let currentLvl = 0;
+    let dailySet = [];
+    let lives = 5;
+    let target = "";
+
+    function showOverlay(msg, btnTxt, callback) {
+        const overlay = document.getElementById('status-overlay');
+        document.getElementById('overlay-content').innerText = msg;
+        const btn = document.getElementById('overlay-btn');
+        btn.innerText = btnTxt;
+        btn.onclick = () => { overlay.style.display = 'none'; callback(); };
+        overlay.style.display = 'flex';
+    }
+
+    function setupDaily() {
+        const seed = new Date().getDate(); 
+        dailySet = [...masterDB].sort(() => 0.5 - (seed / 31)).slice(0, 10);
+    }
+
+    function initLevel() {
+        lives = 5;
+        document.getElementById('lives').innerText = lives;
+        document.getElementById('next-btn').style.display = 'none';
+        document.getElementById('share-btn').style.display = 'none';
+        document.getElementById('keyboard').style.pointerEvents = 'auto';
+        document.getElementById('lvl-num').innerText = currentLvl + 1;
+        target = dailySet[currentLvl].a;
+        document.getElementById('hint-text').innerText = "HINT: " + dailySet[currentLvl].q;
+        
+        const grid = document.getElementById('word-display');
+        grid.innerHTML = '';
+        target.split('').forEach((c, i) => {
+            const b = document.createElement('span'); b.className = 'letter-box'; b.id = 'c-' + i; grid.appendChild(b);
+        });
+
+        const keys = document.getElementById('keyboard');
+        keys.innerHTML = '';
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(l => {
+            const k = document.createElement('button'); k.className = 'key'; k.innerText = l;
+            k.onclick = () => play(l, k); keys.appendChild(k);
+        });
+    }
+
+    function play(l, k) {
+        k.disabled = true;
+        if (target.includes(l)) {
+            k.classList.add('correct');
+            target.split('').forEach((c, i) => { if (c === l) { document.getElementById('c-' + i).innerText = l; document.getElementById('c-' + i).classList.add('found'); }});
+        } else {
+            k.classList.add('wrong');
+            lives--; document.getElementById('lives').innerText = lives;
+        }
+        check();
+    }
+
+    function check() {
+        const win = Array.from(document.querySelectorAll('.letter-box')).every(b => b.innerText !== "");
+        if (win) {
+            document.getElementById('keyboard').style.pointerEvents = 'none';
+            if (currentLvl === 9) {
+                showOverlay("TAHNIAH! Anda berjaya selesaikan cabaran hari ini. 🔥\n\nJangan lupa datang balik esok jam 8:00 AM untuk soalan baru!", "KONGSI KE FB", () => {
+                    document.getElementById('share-btn').style.display = 'block';
+                });
+            } else {
+                document.getElementById('next-btn').style.display = 'block';
+            }
+        } else if (lives <= 0) {
+            showOverlay("ALAHAI.. NYAWA HABIS! 😵\nCuba lagi esok atau ulang semula sekarang.", "ULANG SEMULA", () => { currentLvl = 0; initLevel(); });
+        }
+    }
+
+    function nextLevel() { currentLvl++; initLevel(); }
+
+    function shareToFB() {
+        const url = window.location.href;
+        const msg = `Alhamdulillah! Selesai 10/10 Cabaran Ramadan Brain Gym dari @naznizismyusername hari ni. 🧠🌙 Jom asah otak:`;
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    window.onload = () => { setupDaily(); initLevel(); };
+</script>
+</body>
+</html>
