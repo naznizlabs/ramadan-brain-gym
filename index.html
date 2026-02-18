@@ -10,6 +10,10 @@
         
         .card { background: white; padding: 25px; border-radius: 24px; box-shadow: 0 10px 50px rgba(0,0,0,0.1); width: 100%; max-width: 420px; text-align: center; border: 1px solid #eee; position: relative; overflow: hidden; box-sizing: border-box; }
         
+        /* Widget Jam & Tarikh */
+        .live-info { background: #f8f9fa; padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 0.7rem; color: #555; display: flex; justify-content: space-between; align-items: center; border: 1px inset #eee; }
+        .live-time { font-weight: 800; color: var(--primary); }
+
         .avatar-container { width: 80px; height: 80px; margin: 0 auto 10px; }
         .avatar { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); object-fit: cover; background: #eee; }
         
@@ -17,31 +21,14 @@
         .cta-text { font-size: 0.4rem; color: #666; margin-top: 4px; font-weight: 500; font-style: italic; }
         .title-main { color: var(--primary); margin: 15px 0 5px 0; font-size: 1.3rem; font-weight: 800; }
         
-        .progress-text { font-size: 0.8rem; font-weight: 800; color: #aaa; margin-top: 10px; text-transform: uppercase; }
+        .ramadan-counter { color: var(--accent); font-weight: 900; font-size: 1.1rem; margin-top: 5px; }
+        .progress-text { font-size: 0.7rem; font-weight: 800; color: #aaa; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
         .lives-text { color: var(--error); font-weight: bold; font-size: 1rem; margin-top: 5px; }
 
         .hint-box { background: #fffcf0; padding: 18px; border-radius: 12px; margin: 15px 0; font-style: italic; border-left: 5px solid var(--accent); text-align: left; font-size: 0.95rem; line-height: 1.5; color: #444; min-height: 60px; }
         
-        /* FIX RESPONSIVE UNTUK JAWAPAN PANJANG */
-        .word-display { 
-            display: flex; 
-            gap: 5px; 
-            justify-content: center; 
-            margin-bottom: 20px; 
-            flex-wrap: wrap; /* Supaya huruf turun bawah kalau panjang */
-            padding: 0 5px;
-        }
-        .letter-box { 
-            min-width: 25px; 
-            height: 35px; 
-            border-bottom: 3px solid #ddd; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: clamp(0.9rem, 4vw, 1.2rem); 
-            font-weight: bold; 
-            text-transform: uppercase; 
-        }
+        .word-display { display: flex; gap: 5px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; padding: 0 5px; }
+        .letter-box { min-width: 25px; height: 35px; border-bottom: 3px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: clamp(0.9rem, 4vw, 1.2rem); font-weight: bold; text-transform: uppercase; }
         .found { border-bottom: 3px solid var(--success); color: var(--success); animation: pop 0.3s; }
 
         .keyboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(32px, 1fr)); gap: 6px; }
@@ -63,6 +50,11 @@
 <body>
 
 <div class="card">
+    <div class="live-info">
+        <div id="live-date">19 Feb 2026</div>
+        <div class="live-time" id="live-clock">08:00:00 AM</div>
+    </div>
+
     <div id="status-overlay">
         <div id="overlay-content" class="overlay-msg"></div>
         <button id="overlay-btn" class="btn-action" style="display:block; width: 200px; background: var(--primary); color: white;"></button>
@@ -76,8 +68,10 @@
                 <span>naznizismyusername</span>
             </a>
             <div class="cta-text">"Saja buat game ni untuk asah otak. Singgahlah wall saya kalau nak borak pasal kucing atau coding. ✨"</div>
+            
             <div class="title-main">RAMADAN BRAIN GYM 🧠🌙</div>
-            <div class="progress-text">LEVEL <span id="lvl-num">1</span> / 10</div>
+            <div class="ramadan-counter">DAY <span id="ram-day-val">1</span></div>
+            <div class="progress-text">CABARAN <span id="lvl-num">1</span> / 10</div>
             <div class="lives-text">NYAWA: <span id="lives">5</span> ❤️</div>
         </div>
 
@@ -93,7 +87,7 @@
         <div class="affiliate-box">
             <div style="flex: 1;">
                 <div style="font-size: 0.75rem; font-weight: 800; color: #1a2a3a;">Dah pandai asah otak, jom asah income! 💸</div>
-                <div style="font-size: 0.55rem; color: #444; margin-top: 3px;">Ketahui teknik kelayakan cepat & sekuriti akaun FB Monetization 2026.</div>
+                <div style="font-size: 0.55rem; color: #444; margin-top: 3px;">Ketahui rahsia jana USD & strategi monetization 2026 yang Facebook tak beritahu anda.</div>
             </div>
             <a href="https://amarmagical.onpay.my/order/form/ebookfbmonetization/427" target="_blank" style="background: #1877F2; color: white; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.65rem;">INFO LANJUT</a>
         </div>
@@ -101,7 +95,6 @@
 </div>
 
 <script>
-    // Copy-paste soalan baru di sini nanti
     const masterDB = [
         { q: "Nama asal Kota Madinah sebelum Islam.", a: "YATHRIB" },
         { q: "Gelaran bagi Khalid bin Al-Walid.", a: "SAIFULLAH" },
@@ -120,6 +113,20 @@
     let lives = 5;
     let target = "";
 
+    // Fungsi Jam & Tarikh Real-time
+    function updateClock() {
+        const now = new Date();
+        const days = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
+        const months = ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogos', 'Sep', 'Okt', 'Nov', 'Dis'];
+        
+        const dateStr = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+        
+        document.getElementById('live-date').innerText = dateStr;
+        document.getElementById('live-clock').innerText = timeStr;
+    }
+    setInterval(updateClock, 1000);
+
     function showOverlay(msg, btnTxt, callback) {
         const overlay = document.getElementById('status-overlay');
         document.getElementById('overlay-content').innerText = msg;
@@ -130,7 +137,15 @@
     }
 
     function setupDaily() {
-        const seed = new Date().getDate(); 
+        const today = new Date();
+        // 1 Ramadan 2026 jatuh pada 19 Feb 2026
+        const startRamadan = new Date("2026-02-19");
+        const diffTime = today - startRamadan;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+        
+        document.getElementById('ram-day-val').innerText = diffDays > 0 ? diffDays : 1;
+
+        const seed = today.getDate(); 
         dailySet = [...masterDB].sort(() => 0.5 - (seed / 31)).slice(0, 10);
     }
 
@@ -175,14 +190,14 @@
         if (win) {
             document.getElementById('keyboard').style.pointerEvents = 'none';
             if (currentLvl === 9) {
-                showOverlay("TAHNIAH! Anda berjaya selesaikan cabaran hari ini. 🔥\n\nJangan lupa datang balik esok jam 8:00 AM untuk soalan baru!", "KONGSI KE FB", () => {
+                showOverlay("TAHNIAH! Anda selesaikan semua soalan hari ini. 🔥\n\nJangan lupa datang balik esok jam 8:00 AM untuk DAY 2!", "KONGSI KE FB", () => {
                     document.getElementById('share-btn').style.display = 'block';
                 });
             } else {
                 document.getElementById('next-btn').style.display = 'block';
             }
         } else if (lives <= 0) {
-            showOverlay("ALAHAI.. NYAWA HABIS! 😵\nCuba lagi esok atau ulang semula sekarang.", "ULANG SEMULA", () => { currentLvl = 0; initLevel(); });
+            showOverlay("ALAHAI.. NYAWA HABIS! 😵\nCuba lagi atau ulang semula dari Level 1.", "ULANG SEMULA", () => { currentLvl = 0; initLevel(); });
         }
     }
 
@@ -190,11 +205,12 @@
 
     function shareToFB() {
         const url = window.location.href;
-        const msg = `Alhamdulillah! Selesai 10/10 Cabaran Ramadan Brain Gym dari @naznizismyusername hari ni. 🧠🌙 Jom asah otak:`;
+        const ramDay = document.getElementById('ram-day-val').innerText;
+        const msg = `Alhamdulillah! Selesai 10/10 Cabaran Ramadan Day ${ramDay} Brain Gym dari @naznizismyusername. 🧠🌙 Jom asah otak:`;
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    window.onload = () => { setupDaily(); initLevel(); };
+    window.onload = () => { setupDaily(); updateClock(); initLevel(); };
 </script>
 </body>
 </html>
