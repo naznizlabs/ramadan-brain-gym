@@ -7,59 +7,43 @@
     <style>
         :root { --primary: #1a2a3a; --accent: #c5a021; --success: #27ae60; --error: #e74c3c; --bg: #f0f2f5; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-        
         .card { background: white; padding: 25px; border-radius: 24px; box-shadow: 0 10px 50px rgba(0,0,0,0.1); width: 100%; max-width: 420px; text-align: center; border: 1px solid #eee; position: relative; overflow: hidden; box-sizing: border-box; }
-        
-        /* Widget Jam & Tarikh */
         .live-info { background: #f8f9fa; padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 0.7rem; color: #555; display: flex; justify-content: space-between; align-items: center; border: 1px inset #eee; }
         .live-time { font-weight: 800; color: var(--primary); }
-
         .avatar-container { width: 80px; height: 80px; margin: 0 auto 10px; }
         .avatar { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); object-fit: cover; background: #eee; }
-        
         .fb-brand { color: #1877F2; font-weight: bold; font-size: 1rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .cta-text { font-size: 0.4rem; color: #666; margin-top: 4px; font-weight: 500; font-style: italic; }
         .title-main { color: var(--primary); margin: 15px 0 5px 0; font-size: 1.3rem; font-weight: 800; }
-        
         .ramadan-counter { color: var(--accent); font-weight: 900; font-size: 1.1rem; margin-top: 5px; }
         .progress-text { font-size: 0.7rem; font-weight: 800; color: #aaa; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
         .lives-text { color: var(--error); font-weight: bold; font-size: 1rem; margin-top: 5px; }
-
         .hint-box { background: #fffcf0; padding: 18px; border-radius: 12px; margin: 15px 0; font-style: italic; border-left: 5px solid var(--accent); text-align: left; font-size: 0.95rem; line-height: 1.5; color: #444; min-height: 60px; }
-        
         .word-display { display: flex; gap: 5px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; padding: 0 5px; }
         .letter-box { min-width: 25px; height: 35px; border-bottom: 3px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: clamp(0.9rem, 4vw, 1.2rem); font-weight: bold; text-transform: uppercase; }
         .found { border-bottom: 3px solid var(--success); color: var(--success); animation: pop 0.3s; }
-
         .keyboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(32px, 1fr)); gap: 6px; }
         .key { padding: 12px 0; background: #f8f9fa; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.85rem; border: none; }
         .key:disabled { opacity: 0.4; }
         .key.correct { background: var(--success); color: white; }
         .key.wrong { background: #ddd; color: #888; }
-
         .btn-action { width: 100%; padding: 15px; border: none; border-radius: 12px; margin-top: 15px; font-weight: 800; cursor: pointer; display: none; font-size: 1rem; }
-        
         #status-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.97); z-index: 10; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
         .overlay-msg { font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-bottom: 15px; line-height: 1.4; }
-
         .affiliate-box { background: #f0f7ff; border: 1.5px solid #1877F2; padding: 12px; border-radius: 16px; display: flex; align-items: center; gap: 10px; margin-top: 25px; text-align: left; }
-
         @keyframes pop { 0% { transform: scale(0.8); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
-
 <div class="card">
     <div class="live-info">
-        <div id="live-date">19 Feb 2026</div>
-        <div class="live-time" id="live-clock">08:00:00 AM</div>
+        <div id="live-date">Memuatkan tarikh...</div>
+        <div class="live-time" id="live-clock">00:00:00 AM</div>
     </div>
-
     <div id="status-overlay">
         <div id="overlay-content" class="overlay-msg"></div>
         <button id="overlay-btn" class="btn-action" style="display:block; width: 200px; background: var(--primary); color: white;"></button>
     </div>
-
     <div id="game-container">
         <div class="header">
             <div class="avatar-container"><img src="avatar-head.png" alt="nazniz" class="avatar"></div>
@@ -68,60 +52,41 @@
                 <span>naznizismyusername</span>
             </a>
             <div class="cta-text">"Saja buat game ni untuk asah otak. Singgahlah wall saya kalau nak borak pasal kucing atau coding. ✨"</div>
-            
             <div class="title-main">RAMADAN BRAIN GYM 🧠🌙</div>
             <div class="ramadan-counter">DAY <span id="ram-day-val">1</span></div>
             <div class="progress-text">CABARAN <span id="lvl-num">1</span> / 10</div>
             <div class="lives-text">NYAWA: <span id="lives">5</span> ❤️</div>
         </div>
-
         <div id="hint-text" class="hint-box">Memuatkan...</div>
         <div id="word-display" class="word-display"></div>
         <div id="keyboard" class="keyboard"></div>
-
         <button id="next-btn" class="btn-action" style="background: var(--success); color: white;" onclick="nextLevel()">TERUSKAN ➡️</button>
         <button id="share-btn" class="btn-action" style="background: #1877F2; color: white;" onclick="shareToFB()">KONGSI KEJAYAAN 🏆</button>
-
         <div style="font-size: 0.7rem; color: #27ae60; font-weight: bold; margin-top: 15px;">🌙 Soalan baru setiap pagi jam 8:00 AM</div>
-
         <div class="affiliate-box">
             <div style="flex: 1;">
-                <div style="font-size: 0.75rem; font-weight: 800; color: #1a2a3a;">Dah pandai asah otak, jom asah income! 💸</div>
-                <div style="font-size: 0.55rem; color: #444; margin-top: 3px;">Ketahui rahsia jana USD & strategi monetization 2026 yang Facebook tak beritahu anda.</div>
+                <div style="font-size: 0.75rem; font-weight: 800; color: #1a2a3a;">Dah asah otak, jom asah income pula! 💸</div>
+                <div style="font-size: 0.55rem; color: #444; margin-top: 3px;">Rahsia jana USD & strategi monetization 2026 yang Facebook tak beritahu anda.</div>
             </div>
-            <a href="https://amarmagical.onpay.my/order/form/ebookfbmonetization/427" target="_blank" style="background: #1877F2; color: white; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.65rem;">INFO LANJUT</a>
+            <a href="https://amarmagical.onpay.my/order/form/ebookfbmonetization/427" target="_blank" style="background: #1877F2; color: white; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.65rem;">JOM START</a>
         </div>
     </div>
 </div>
 
-<script>
-    const masterDB = [
-        { q: "Nama asal Kota Madinah sebelum Islam.", a: "YATHRIB" },
-        { q: "Gelaran bagi Khalid bin Al-Walid.", a: "SAIFULLAH" },
-        { q: "Perang pertama dalam sejarah Islam.", a: "BADAR" },
-        { q: "Bulan diturunkan Al-Quran.", a: "RAMADAN" },
-        { q: "Maksud: Berhenti makan sebelum Subuh.", a: "IMSAK" },
-        { q: "Ibu susuan Nabi Muhammad SAW.", a: "HALIMATUSAADIAH" },
-        { q: "Kiblat pertama sebelum Baitullah.", a: "BAITULMAQDIS" },
-        { q: "Sahabat paling banyak riwayat hadis.", a: "ABUHURAIRAH" },
-        { q: "Perjalanan Nabi ke Sidratul Muntaha.", a: "ISRAKMIKRAJ" },
-        { q: "Pedang milik Saidina Ali.", a: "ZULFIQAR" }
-    ];
+<script src="soalan.js"></script>
 
+<script>
     let currentLvl = 0;
     let dailySet = [];
     let lives = 5;
     let target = "";
 
-    // Fungsi Jam & Tarikh Real-time
     function updateClock() {
         const now = new Date();
         const days = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
         const months = ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogos', 'Sep', 'Okt', 'Nov', 'Dis'];
-        
         const dateStr = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
         const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-        
         document.getElementById('live-date').innerText = dateStr;
         document.getElementById('live-clock').innerText = timeStr;
     }
@@ -138,15 +103,19 @@
 
     function setupDaily() {
         const today = new Date();
-        // 1 Ramadan 2026 jatuh pada 19 Feb 2026
         const startRamadan = new Date("2026-02-19");
         const diffTime = today - startRamadan;
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-        
         document.getElementById('ram-day-val').innerText = diffDays > 0 ? diffDays : 1;
-
-        const seed = today.getDate(); 
-        dailySet = [...masterDB].sort(() => 0.5 - (seed / 31)).slice(0, 10);
+        
+        // Cek jika masterDB wujud (dari soalan.js)
+        if (typeof masterDB !== 'undefined') {
+            const seed = today.getDate(); 
+            dailySet = [...masterDB].sort(() => 0.5 - (seed / 31)).slice(0, 10);
+            initLevel();
+        } else {
+            document.getElementById('hint-text').innerText = "Ralat: Fail soalan.js tidak dijumpai!";
+        }
     }
 
     function initLevel() {
@@ -158,13 +127,11 @@
         document.getElementById('lvl-num').innerText = currentLvl + 1;
         target = dailySet[currentLvl].a;
         document.getElementById('hint-text').innerText = "HINT: " + dailySet[currentLvl].q;
-        
         const grid = document.getElementById('word-display');
         grid.innerHTML = '';
         target.split('').forEach((c, i) => {
             const b = document.createElement('span'); b.className = 'letter-box'; b.id = 'c-' + i; grid.appendChild(b);
         });
-
         const keys = document.getElementById('keyboard');
         keys.innerHTML = '';
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(l => {
@@ -190,7 +157,8 @@
         if (win) {
             document.getElementById('keyboard').style.pointerEvents = 'none';
             if (currentLvl === 9) {
-                showOverlay("TAHNIAH! Anda selesaikan semua soalan hari ini. 🔥\n\nJangan lupa datang balik esok jam 8:00 AM untuk DAY 2!", "KONGSI KE FB", () => {
+                const rDay = document.getElementById('ram-day-val').innerText;
+                showOverlay(`TAHNIAH! Anda selesaikan DAY ${rDay}. 🔥\n\nJangan lupa datang balik esok jam 8:00 AM!`, "KONGSI KE FB", () => {
                     document.getElementById('share-btn').style.display = 'block';
                 });
             } else {
@@ -210,7 +178,7 @@
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    window.onload = () => { setupDaily(); updateClock(); initLevel(); };
+    window.onload = () => { setupDaily(); updateClock(); };
 </script>
 </body>
 </html>
