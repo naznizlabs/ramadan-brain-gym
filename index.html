@@ -11,8 +11,7 @@
         .live-info { background: #f8f9fa; padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 0.7rem; color: #555; display: flex; justify-content: space-between; align-items: center; border: 1px inset #eee; }
         .live-time { font-weight: 800; color: var(--primary); }
         
-        /* Language Switcher Styling */
-        .lang-switch { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+        .lang-switch { display: flex; justify: center; gap: 10px; margin-bottom: 15px; justify-content: center; }
         .lang-btn { padding: 5px 12px; border-radius: 15px; border: 1px solid #ddd; background: white; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
         .lang-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
@@ -147,13 +146,19 @@
 
     function setupDaily() {
         const today = new Date();
-        const startRamadan = new Date("2026-02-19");
-        const diffDays = Math.floor((today - startRamadan) / (1000 * 60 * 60 * 24)) + 1;
+        // Set start kpd pukul 12 AM 19 Feb supaya pengiraan tepat
+        const startRamadan = new Date("2026-02-19T00:00:00"); 
+        
+        // Guna Math.ceil supaya lepas 12 AM terus masuk hari baru
+        const diffTime = today - startRamadan;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         const dayVal = diffDays > 0 ? diffDays : 1;
+        
         document.getElementById('ram-day-val').innerText = dayVal;
         
         if (typeof masterDB !== 'undefined') {
             const data = masterDB[lang] || masterDB['bm'];
+            // Guna tarikh hari ni sebagai seed untuk shuffle soalan
             const seed = today.getDate(); 
             dailySet = [...data].sort(() => 0.5 - (seed / 31)).slice(0, 10);
             initLevel();
