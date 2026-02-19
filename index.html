@@ -10,6 +10,12 @@
         .card { background: white; padding: 25px; border-radius: 24px; box-shadow: 0 10px 50px rgba(0,0,0,0.1); width: 100%; max-width: 420px; text-align: center; border: 1px solid #eee; position: relative; overflow: hidden; box-sizing: border-box; }
         .live-info { background: #f8f9fa; padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 0.7rem; color: #555; display: flex; justify-content: space-between; align-items: center; border: 1px inset #eee; }
         .live-time { font-weight: 800; color: var(--primary); }
+        
+        /* Language Switcher Styling */
+        .lang-switch { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+        .lang-btn { padding: 5px 12px; border-radius: 15px; border: 1px solid #ddd; background: white; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
+        .lang-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
         .avatar-container { width: 80px; height: 80px; margin: 0 auto 10px; }
         .avatar { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); object-fit: cover; background: #eee; }
         .fb-brand { color: #1877F2; font-weight: bold; font-size: 1rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; }
@@ -37,13 +43,20 @@
 <body>
 <div class="card">
     <div class="live-info">
-        <div id="live-date">Memuatkan tarikh...</div>
+        <div id="live-date">...</div>
         <div class="live-time" id="live-clock">00:00:00 AM</div>
     </div>
+
+    <div class="lang-switch">
+        <button id="btn-bm" class="lang-btn" onclick="setLang('bm')">🇲🇾 BM</button>
+        <button id="btn-en" class="lang-btn" onclick="setLang('en')">🇬🇧 EN</button>
+    </div>
+
     <div id="status-overlay">
         <div id="overlay-content" class="overlay-msg"></div>
         <button id="overlay-btn" class="btn-action" style="display:block; width: 200px; background: var(--primary); color: white;"></button>
     </div>
+
     <div id="game-container">
         <div class="header">
             <div class="avatar-container"><img src="avatar-head.png" alt="nazniz" class="avatar"></div>
@@ -51,22 +64,23 @@
                 <svg width="18" height="18" fill="#1877F2" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
                 <span>naznizismyusername</span>
             </a>
-            <div class="cta-text">"Saja buat game ni untuk asah otak. Singgahlah wall saya kalau nak borak pasal kucing atau coding. ✨"</div>
+            <div id="cta-desc" class="cta-text"></div>
             <div class="title-main">RAMADAN BRAIN GYM 🧠🌙</div>
             <div class="ramadan-counter">DAY <span id="ram-day-val">1</span></div>
-            <div class="progress-text">CABARAN <span id="lvl-num">1</span> / 10</div>
-            <div class="lives-text">NYAWA: <span id="lives">5</span> ❤️</div>
+            <div class="progress-text"><span id="txt-lvl">CABARAN</span> <span id="lvl-num">1</span> / 10</div>
+            <div class="lives-text"><span id="txt-lives">NYAWA</span>: <span id="lives">5</span> ❤️</div>
         </div>
-        <div id="hint-text" class="hint-box">Memuatkan...</div>
+        <div id="hint-text" class="hint-box">...</div>
         <div id="word-display" class="word-display"></div>
         <div id="keyboard" class="keyboard"></div>
-        <button id="next-btn" class="btn-action" style="background: var(--success); color: white;" onclick="nextLevel()">TERUSKAN ➡️</button>
-        <button id="share-btn" class="btn-action" style="background: #1877F2; color: white;" onclick="shareToFB()">KONGSI KEJAYAAN 🏆</button>
-        <div style="font-size: 0.7rem; color: #27ae60; font-weight: bold; margin-top: 15px;">🌙 Soalan baru setiap pagi jam 8:00 AM</div>
+        <button id="next-btn" class="btn-action" style="background: var(--success); color: white;" onclick="nextLevel()"></button>
+        <button id="share-btn" class="btn-action" style="background: #1877F2; color: white;" onclick="shareToFB()"></button>
+        <div id="footer-note" style="font-size: 0.7rem; color: #27ae60; font-weight: bold; margin-top: 15px;"></div>
+        
         <div class="affiliate-box">
             <div style="flex: 1;">
-                <div style="font-size: 0.75rem; font-weight: 800; color: #1a2a3a;">Dah asah otak, jom asah income pula! 💸</div>
-                <div style="font-size: 0.55rem; color: #444; margin-top: 3px;">Rahsia jana USD & strategi monetization 2026 yang Facebook tak beritahu anda.</div>
+                <div id="aff-title" style="font-size: 0.75rem; font-weight: 800; color: #1a2a3a;"></div>
+                <div id="aff-desc" style="font-size: 0.55rem; color: #444; margin-top: 3px;"></div>
             </div>
             <a href="https://amarmagical.onpay.my/order/form/ebookfbmonetization/427" target="_blank" style="background: #1877F2; color: white; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 0.65rem;">JOM START</a>
         </div>
@@ -74,47 +88,75 @@
 </div>
 
 <script src="soalan.js"></script>
-
 <script>
     let currentLvl = 0;
     let dailySet = [];
     let lives = 5;
     let target = "";
+    let lang = localStorage.getItem('ramadanLang') || 'bm';
+
+    const uiText = {
+        bm: {
+            cta: '"Saja buat game ni untuk asah otak. Singgahlah wall saya kalau nak borak pasal kucing atau coding. ✨"',
+            lvl: "CABARAN", lives: "NYAWA", next: "TERUSKAN ➡️", share: "KONGSI KEJAYAAN 🏆",
+            footer: "🌙 Soalan baru setiap pagi jam 8:00 AM",
+            affT: "Dah asah otak, jom asah income pula! 💸",
+            affD: "Rahsia jana USD & strategi monetization 2026 yang Facebook tak beritahu anda.",
+            win: (day) => `TAHNIAH! Anda selesaikan DAY ${day}. 🔥\n\nJangan lupa datang balik esok jam 8:00 AM!`,
+            lose: "ALAHAI.. NYAWA HABIS! 😵\nCuba lagi atau ulang semula dari Level 1.",
+            btnWin: "KONGSI KE FB", btnLose: "ULANG SEMULA",
+            shareMsg: (day) => `Alhamdulillah! Selesai 10/10 Cabaran Ramadan Day ${day} Brain Gym dari @naznizismyusername. 🧠🌙 Jom asah otak:`
+        },
+        en: {
+            cta: '"Just a fun game to sharpen the mind. Visit my wall to chat about cats or coding. ✨"',
+            lvl: "LEVEL", lives: "LIVES", next: "CONTINUE ➡️", share: "SHARE SUCCESS 🏆",
+            footer: "🌙 New questions every morning at 8:00 AM",
+            affT: "Brain sharpened? Let's sharpen your income! 💸",
+            affD: "Secrets to earn USD & 2026 monetization strategies FB won't tell you.",
+            win: (day) => `CONGRATS! You finished DAY ${day}. 🔥\n\nCome back tomorrow at 8:00 AM!`,
+            lose: "OOPS.. NO LIVES LEFT! 😵\nTry again or restart from Level 1.",
+            btnWin: "SHARE TO FB", btnLose: "RESTART",
+            shareMsg: (day) => `Alhamdulillah! Finished 10/10 Ramadan Challenge Day ${day} Brain Gym by @naznizismyusername. 🧠🌙 Try it here:`
+        }
+    };
+
+    function setLang(l) {
+        localStorage.setItem('ramadanLang', l);
+        location.reload();
+    }
+
+    function updateUI() {
+        const t = uiText[lang];
+        document.getElementById('cta-desc').innerText = t.cta;
+        document.getElementById('txt-lvl').innerText = t.lvl;
+        document.getElementById('txt-lives').innerText = t.lives;
+        document.getElementById('next-btn').innerText = t.next;
+        document.getElementById('share-btn').innerText = t.share;
+        document.getElementById('footer-note').innerText = t.footer;
+        document.getElementById('aff-title').innerText = t.affT;
+        document.getElementById('aff-desc').innerText = t.affD;
+        document.getElementById(`btn-${lang}`).classList.add('active');
+    }
 
     function updateClock() {
         const now = new Date();
-        const days = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
-        const months = ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogos', 'Sep', 'Okt', 'Nov', 'Dis'];
-        const dateStr = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-        document.getElementById('live-date').innerText = dateStr;
-        document.getElementById('live-clock').innerText = timeStr;
-    }
-    setInterval(updateClock, 1000);
-
-    function showOverlay(msg, btnTxt, callback) {
-        const overlay = document.getElementById('status-overlay');
-        document.getElementById('overlay-content').innerText = msg;
-        const btn = document.getElementById('overlay-btn');
-        btn.innerText = btnTxt;
-        btn.onclick = () => { overlay.style.display = 'none'; callback(); };
-        overlay.style.display = 'flex';
+        const days = lang === 'bm' ? ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'] : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        document.getElementById('live-date').innerText = now.toLocaleDateString(lang === 'bm' ? 'ms-MY' : 'en-US', { weekday:'long', day:'numeric', month:'short', year:'numeric' });
+        document.getElementById('live-clock').innerText = now.toLocaleTimeString('en-US', { hour12: true });
     }
 
     function setupDaily() {
         const today = new Date();
         const startRamadan = new Date("2026-02-19");
-        const diffTime = today - startRamadan;
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-        document.getElementById('ram-day-val').innerText = diffDays > 0 ? diffDays : 1;
+        const diffDays = Math.floor((today - startRamadan) / (1000 * 60 * 60 * 24)) + 1;
+        const dayVal = diffDays > 0 ? diffDays : 1;
+        document.getElementById('ram-day-val').innerText = dayVal;
         
-        // Cek jika masterDB wujud (dari soalan.js)
         if (typeof masterDB !== 'undefined') {
+            const data = masterDB[lang] || masterDB['bm'];
             const seed = today.getDate(); 
-            dailySet = [...masterDB].sort(() => 0.5 - (seed / 31)).slice(0, 10);
+            dailySet = [...data].sort(() => 0.5 - (seed / 31)).slice(0, 10);
             initLevel();
-        } else {
-            document.getElementById('hint-text').innerText = "Ralat: Fail soalan.js tidak dijumpai!";
         }
     }
 
@@ -125,12 +167,14 @@
         document.getElementById('share-btn').style.display = 'none';
         document.getElementById('keyboard').style.pointerEvents = 'auto';
         document.getElementById('lvl-num').innerText = currentLvl + 1;
-        target = dailySet[currentLvl].a;
+        target = dailySet[currentLvl].a.toUpperCase();
         document.getElementById('hint-text').innerText = "HINT: " + dailySet[currentLvl].q;
         const grid = document.getElementById('word-display');
         grid.innerHTML = '';
         target.split('').forEach((c, i) => {
-            const b = document.createElement('span'); b.className = 'letter-box'; b.id = 'c-' + i; grid.appendChild(b);
+            const b = document.createElement('span'); b.className = 'letter-box'; b.id = 'c-' + i; 
+            if(c === " ") { b.innerText = "-"; b.style.border = "none"; }
+            grid.appendChild(b);
         });
         const keys = document.getElementById('keyboard');
         keys.innerHTML = '';
@@ -154,31 +198,39 @@
 
     function check() {
         const win = Array.from(document.querySelectorAll('.letter-box')).every(b => b.innerText !== "");
+        const day = document.getElementById('ram-day-val').innerText;
         if (win) {
             document.getElementById('keyboard').style.pointerEvents = 'none';
             if (currentLvl === 9) {
-                const rDay = document.getElementById('ram-day-val').innerText;
-                showOverlay(`TAHNIAH! Anda selesaikan DAY ${rDay}. 🔥\n\nJangan lupa datang balik esok jam 8:00 AM!`, "KONGSI KE FB", () => {
+                showOverlay(uiText[lang].win(day), uiText[lang].btnWin, () => {
                     document.getElementById('share-btn').style.display = 'block';
                 });
             } else {
                 document.getElementById('next-btn').style.display = 'block';
             }
         } else if (lives <= 0) {
-            showOverlay("ALAHAI.. NYAWA HABIS! 😵\nCuba lagi atau ulang semula dari Level 1.", "ULANG SEMULA", () => { currentLvl = 0; initLevel(); });
+            showOverlay(uiText[lang].lose, uiText[lang].btnLose, () => { currentLvl = 0; initLevel(); });
         }
+    }
+
+    function showOverlay(msg, btnTxt, callback) {
+        const overlay = document.getElementById('status-overlay');
+        document.getElementById('overlay-content').innerText = msg;
+        const btn = document.getElementById('overlay-btn');
+        btn.innerText = btnTxt;
+        btn.onclick = () => { overlay.style.display = 'none'; callback(); };
+        overlay.style.display = 'flex';
     }
 
     function nextLevel() { currentLvl++; initLevel(); }
 
     function shareToFB() {
-        const url = window.location.href;
-        const ramDay = document.getElementById('ram-day-val').innerText;
-        const msg = `Alhamdulillah! Selesai 10/10 Cabaran Ramadan Day ${ramDay} Brain Gym dari @naznizismyusername. 🧠🌙 Jom asah otak:`;
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(msg)}`, '_blank');
+        const day = document.getElementById('ram-day-val').innerText;
+        const msg = uiText[lang].shareMsg(day);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    window.onload = () => { setupDaily(); updateClock(); };
+    window.onload = () => { updateUI(); setupDaily(); setInterval(updateClock, 1000); updateClock(); };
 </script>
 </body>
 </html>
