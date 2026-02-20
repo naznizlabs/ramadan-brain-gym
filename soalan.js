@@ -1,26 +1,26 @@
 const masterDB = {
     bm: [
-        { q: "Nama asal bagi Surah Al-Fatihah (Pembukaan).", a: "UMMULKITAB" },
-        { q: "Gelaran bagi isteri Nabi Muhammad, Saiditina Aisyah.", a: "HUMAIRA" },
-        { q: "Ibu kota empayar Islam semasa zaman Khalifah Harun Al-Rasyid.", a: "BAGHDAD" },
-        { q: "Nama gunung tempat berlakunya Perang Uhud.", a: "UHUD" },
-        { q: "Gelaran bagi Saidina Uthman bin Affan.", a: "ZUNNURAIN" },
-        { q: "Perang terakhir yang disertai oleh Rasulullah SAW.", a: "TABUK" },
-        { q: "Tokoh yang melaungkan Azan pertama dalam Islam.", a: "BILALRABAH" },
-        { q: "Nama perjanjian yang membawa kepada Pembukaan Kota Makkah.", a: "HUDAIBIYAH" },
-        { q: "Nama pedang terkenal milik Khalid bin Al-Walid.", a: "ZULFIQAR" },
-        { q: "Bapa saudara Nabi yang syahid dalam Perang Uhud.", a: "HAMZAH" }
+        { q: "Nama asal Kota Baitulmaqdis sebelum ditukar oleh Rom.", a: "AELIA" },
+        { q: "Kitab hadis yang paling sahih susunan Imam Bukhari.", a: "ALJAMISAHIH" },
+        { q: "Nama malaikat yang ditugaskan menjaga pintu Syurga.", a: "RIDWAN" },
+        { q: "Gelaran bagi sahabat Nabi, Abu Ubaidah Al-Jarrah.", a: "AMINULUMMAH" },
+        { q: "Padang pasir tempat Nabi Musa tersesat selama 40 tahun.", a: "TIH" },
+        { q: "Peristiwa Nabi Muhammad dibedah dada oleh malaikat Jibril.", a: "SYAQQUSSHADR" },
+        { q: "Pemerintah Mesir yang menghadiahkan Mariyah Al-Qibtiyyah.", a: "MUQAUQIS" },
+        { q: "Gelaran bagi kota Madinah yang bermaksud 'Yang Baik'.", a: "THAIBAH" },
+        { q: "Nama masjid tempat turunnya perintah tukar kiblat.", a: "QIBLATAIN" },
+        { q: "Ketua kaum Munafik di Madinah semasa zaman Nabi.", a: "ABDULLAHUBAY" }
     ],
     en: [
-        { q: "The original name of Surah Al-Fatihah.", a: "UMMULKITAB" },
-        { q: "Nickname given to Prophet's wife, Aisha RA.", a: "HUMAIRA" },
-        { q: "Capital of Islamic Empire during Harun Al-Rashid era.", a: "BAGHDAD" },
-        { q: "The mountain where the Battle of Uhud took place.", a: "UHUD" },
-        { q: "The title given to Caliph Uthman bin Affan.", a: "ZUNNURAIN" },
-        { q: "The last battle joined by Prophet Muhammad SAW.", a: "TABUK" },
-        { q: "The first person to call the Adhan (Call to prayer).", a: "BILALRABAH" },
-        { q: "The treaty that led to the Conquest of Makkah.", a: "HUDAIBIYAH" },
-        { q: "The famous sword of Khalid bin Al-Walid.", a: "ZULFIQAR" },
-        { q: "The Prophet's uncle who was martyred in Uhud.", a: "HAMZAH" }
+        { q: "The original name of Jerusalem before the Roman conquest.", a: "AELIA" },
+        { q: "The most authentic book of Hadith compiled by Imam Bukhari.", a: "ALJAMISAHIH" },
+        { q: "The name of the Angel who guards the gates of Paradise.", a: "RIDWAN" },
+        { q: "The title of Abu Ubaidah Al-Jarrah (Trustworthy of the Ummah).", a: "AMINULUMMAH" },
+        { q: "The desert where Prophet Musa wandered for 40 years.", a: "TIH" },
+        { q: "The event where Angel Jibril opened the Prophet's chest.", a: "SYAQQUSSHADR" },
+        { q: "The ruler of Egypt who gifted Mariyah Al-Qibtiyyah.", a: "MUQAUQIS" },
+        { q: "A title for Madinah which means 'The Good/Pure'.", a: "THAIBAH" },
+        { q: "The mosque where the change of Qibla command occurred.", a: "QIBLATAIN" },
+        { q: "The leader of the Munafiq (Hypocrites) in Madinah.", a: "ABDULLAHUBAY" }
     ]
 };
