@@ -1,26 +1,26 @@
 const masterDB = {
     bm: [
-        { q: "Nama asal Kota Baitulmaqdis sebelum ditukar oleh Rom.", a: "AELIA" },
-        { q: "Kitab hadis yang paling sahih susunan Imam Bukhari.", a: "ALJAMISAHIH" },
-        { q: "Nama malaikat yang ditugaskan menjaga pintu Syurga.", a: "RIDWAN" },
-        { q: "Gelaran bagi sahabat Nabi, Abu Ubaidah Al-Jarrah.", a: "AMINULUMMAH" },
-        { q: "Padang pasir tempat Nabi Musa tersesat selama 40 tahun.", a: "TIH" },
-        { q: "Peristiwa Nabi Muhammad dibedah dada oleh malaikat Jibril.", a: "SYAQQUSSHADR" },
-        { q: "Pemerintah Mesir yang menghadiahkan Mariyah Al-Qibtiyyah.", a: "MUQAUQIS" },
-        { q: "Gelaran bagi kota Madinah yang bermaksud 'Yang Baik'.", a: "THAIBAH" },
-        { q: "Nama masjid tempat turunnya perintah tukar kiblat.", a: "QIBLATAIN" },
-        { q: "Ketua kaum Munafik di Madinah semasa zaman Nabi.", a: "ABDULLAHUBAY" }
+        { q: "Nama gelaran bagi anakanda Nabi, Saidatina Fatimah.", a: "ALZAHRA" },
+        { q: "Kitab hadis kedua paling sahih selepas Al-Bukhari.", a: "SAHIHMUSLIM" },
+        { q: "Ilmu berkaitan logik dan cara berfikir dalam Islam.", a: "MANTIQ" },
+        { q: "Nama isteri Nabi Muhammad yang merupakan pakar Hadis.", a: "AISYAH" },
+        { q: "Wanita pertama yang syahid dalam sejarah Islam.", a: "SUMAYYAH" },
+        { q: "Nama lain bagi Surah Al-Anfal.", a: "ALBADR" },
+        { q: "Gelaran bagi Imam Malik (Imam Negeri Hijrah).", a: "IMAMDULHILJRAH" }, // Boleh pendekkan jadi IMAMDULHIJRAH kalau terlalu panjang
+        { q: "Gunung tempat mendaratnya bahtera Nabi Nuh AS.", a: "JUDI" },
+        { q: "Pakar perubatan Islam terkenal (The Canon of Medicine).", a: "IBNUSINA" },
+        { q: "Sahabat Nabi yang digelar 'Singa Allah'.", a: "HAMZAH" }
     ],
     en: [
-        { q: "The original name of Jerusalem before the Roman conquest.", a: "AELIA" },
-        { q: "The most authentic book of Hadith compiled by Imam Bukhari.", a: "ALJAMISAHIH" },
-        { q: "The name of the Angel who guards the gates of Paradise.", a: "RIDWAN" },
-        { q: "The title of Abu Ubaidah Al-Jarrah (Trustworthy of the Ummah).", a: "AMINULUMMAH" },
-        { q: "The desert where Prophet Musa wandered for 40 years.", a: "TIH" },
-        { q: "The event where Angel Jibril opened the Prophet's chest.", a: "SYAQQUSSHADR" },
-        { q: "The ruler of Egypt who gifted Mariyah Al-Qibtiyyah.", a: "MUQAUQIS" },
-        { q: "A title for Madinah which means 'The Good/Pure'.", a: "THAIBAH" },
-        { q: "The mosque where the change of Qibla command occurred.", a: "QIBLATAIN" },
-        { q: "The leader of the Munafiq (Hypocrites) in Madinah.", a: "ABDULLAHUBAY" }
+        { q: "The title of the Prophet's daughter, Saidatina Fatimah.", a: "ALZAHRA" },
+        { q: "The second most authentic book of Hadith after Bukhari.", a: "SAHIHMUSLIM" },
+        { q: "The science of logic and reasoning in Islam.", a: "MANTIQ" },
+        { q: "The Prophet's wife who was a leading scholar of Hadith.", a: "AISYAH" },
+        { q: "The first female martyr in Islamic history.", a: "SUMAYYAH" },
+        { q: "Another name for Surah Al-Anfal.", a: "ALBADR" },
+        { q: "The title of Imam Malik (Imam of the Abode of Hijrah).", a: "IMAMDARULHIJRAH" },
+        { q: "The mountain where Prophet Nuh's ark came to rest.", a: "JUDI" },
+        { q: "The famous Islamic physician (The Canon of Medicine).", a: "AVICENNA" }, // Avicenna is the English/Latin name for Ibnu Sina
+        { q: "The Prophet's companion titled 'The Lion of Allah'.", a: "HAMZAH" }
     ]
 };
